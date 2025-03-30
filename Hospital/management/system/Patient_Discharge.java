@@ -24,7 +24,7 @@ public class Patient_Discharge extends JFrame {
         label.setForeground(Color.WHITE);
         panel.add(label);
 
-        JLabel label1 = new JLabel("Customer-Id");
+        JLabel label1 = new JLabel("Name");
         label1.setBounds(30,80,150,20);
         label1.setFont(new Font("Tahoma",Font.BOLD,14));
         label1.setForeground(Color.WHITE);
@@ -39,7 +39,7 @@ public class Patient_Discharge extends JFrame {
             ResultSet resultSet = conn.statement.executeQuery("select * from patient_info");
             while (resultSet.next()) {
 //                Choice.add(resultSet.getString("number"));
-                choice.add(resultSet.getString("number"));
+                choice.add(resultSet.getString("name"));
 
             }
 
@@ -97,7 +97,7 @@ public class Patient_Discharge extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Conn c = new Conn();
                 try {
-                    c.statement.executeUpdate("delete from patient_info where number = '"+choice.getSelectedItem()+"'");
+                    c.statement.executeUpdate("delete from patient_info where name = '"+choice.getSelectedItem()+"'");
                     c.statement.executeUpdate("update room set Availability = 'Available' where room_no = '"+RNo.getText()+"'");
                     JOptionPane.showMessageDialog(null,"Patient Discharged Successfully");
                     setVisible(false);
@@ -119,7 +119,7 @@ public class Patient_Discharge extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Conn c = new Conn();
                 try {
-                    ResultSet resultSet = c.statement.executeQuery("select * from patient_info where number='"+choice.getSelectedItem()+"'");
+                    ResultSet resultSet = c.statement.executeQuery("select * from patient_info where name='"+choice.getSelectedItem()+"'");
                     while (resultSet.next()) {
                         RNo.setText(resultSet.getString("Room_Number"));
                         INtime.setText(resultSet.getString("Time"));
